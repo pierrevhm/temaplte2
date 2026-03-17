@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Drive Academy | L'excellence de la conduite sereine</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'drive-navy': '#1A2A44',
+            'drive-offwhite': '#FAF9F6',
+            'drive-accent': '#C5A059',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Lato', 'sans-serif'],
+          },
+          borderRadius: {
+            'xl': '1.5rem',
+            '2xl': '2rem',
+          }
+        }
+      }
+    }
+  </script>
+  <style data-purpose="custom-typography">
+    h1, h2, h3, .font-elegant { font-family: 'Playfair Display', serif; }
+    body { font-family: 'Lato', sans-serif; background-color: #FAF9F6; color: #1A2A44; }
+    .text-balance { text-wrap: balance; }
+  </style>
+  <style data-purpose="ui-elements">
+    .card-shadow {
+      box-shadow: 0 10px 30px -5px rgba(26, 42, 68, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-shadow:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -10px rgba(26, 42, 68, 0.15);
+    }
+    .btn-premium { transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .btn-premium:hover { letter-spacing: 1px; }
+  </style>
+</head>
+<body class="antialiased">
+
+<nav class="sticky top-0 z-50 bg-drive-offwhite/90 backdrop-blur-md border-b border-drive-navy/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <div class="flex items-center space-x-2">
+        <span class="text-2xl font-serif font-bold tracking-tight text-drive-navy">Drive Academy</span>
+      </div>
+      <div class="hidden md:flex space-x-10 items-center">
+        <a class="text-sm font-medium hover:text-drive-accent transition-colors uppercase tracking-widest" href="#equipements">Véhicules</a>
+        <a class="text-sm font-medium hover:text-drive-accent transition-colors uppercase tracking-widest" href="#equipe">L'Équipe</a>
+        <a class="text-sm font-medium hover:text-drive-accent transition-colors uppercase tracking-widest" href="#offres">Nos Offres</a>
+        <a class="bg-drive-navy text-drive-offwhite px-6 py-2 rounded-full text-sm font-semibold btn-premium" href="#">Réserver</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="relative h-[85vh] flex items-center overflow-hidden bg-drive-navy">
+    <div class="absolute inset-0 z-0">
+      <img alt="Route côtière sereine" class="w-full h-full object-cover opacity-30" src="https://images.unsplash.com/photo-1630406144797-821be1f35d75?q=80&w=1170&auto=format&fit=crop"/>
+      <div class="absolute inset-0 bg-gradient-to-r from-drive-navy via-drive-navy/80 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl">
+        <span class="inline-block text-drive-accent font-semibold tracking-[0.2em] uppercase mb-4 text-sm">L'excellence au volant</span>
+        <h1 class="text-5xl md:text-7xl font-bold text-drive-offwhite mb-6 leading-tight text-balance">La conduite, avec sérénité.</h1>
+        <p class="text-lg md:text-xl text-drive-offwhite/80 mb-10 leading-relaxed font-light">
+          Une approche pédagogique haut de gamme, centrée sur la patience et l'excellence technique. Apprenez à votre rythme dans un environnement sécurisant.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a class="px-8 py-4 bg-drive-accent text-white rounded-xl font-bold text-center btn-premium" href="#offres">Découvrir nos offres</a>
+          <a class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-xl font-bold text-center hover:bg-white/20 transition-all" href="#equipements">Notre flotte sécurisée</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-drive-navy text-drive-offwhite" id="equipements">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="space-y-12">
+          <div>
+            <h2 class="text-4xl font-bold mb-6 text-drive-offwhite text-balance">Votre sécurité, notre priorité absolue</h2>
+            <p class="text-drive-offwhite/70 text-lg">Nous investissons dans les meilleures technologies et infrastructures pour garantir un environnement d'apprentissage optimal.</p>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-8">
+            <div class="space-y-3">
+              <div class="w-12 h-12 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              </div>
+              <h4 class="font-bold text-xl text-drive-offwhite">Double Commande</h4>
+              <p class="text-sm text-drive-offwhite/60">Flotte de véhicules récents équipés des dernières technologies de sécurité active et passive.</p>
+            </div>
+            <div class="space-y-3">
+              <div class="w-12 h-12 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              </div>
+              <h4 class="font-bold text-xl text-drive-offwhite">Citadines Agiles</h4>
+              <p class="text-sm text-drive-offwhite/60">Maniabilité exceptionnelle et motorisations modernes pour une conduite urbaine tout en agilité.</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative group">
+          <div class="absolute -inset-4 bg-drive-accent/20 rounded-2xl blur-2xl group-hover:blur-3xl transition-all"></div>
+          <img alt="Berline premium de l'école - VW Golf" class="relative rounded-2xl border border-white/10 shadow-2xl w-full h-[400px] object-cover" src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=1200"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-white" id="equipe">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-drive-navy mb-4 text-balanceTracking tight">Une équipe bienveillante</h2>
+        <p class="text-lg text-drive-navy/70 max-w-2xl mx-auto">Nos instructeurs sont des pédagogues certifiés qui mettent la patience au cœur de leur enseignement.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div class="group">
+          <div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 card-shadow">
+            <img alt="Marc" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400"/>
+          </div>
+          <h4 class="text-xl font-bold text-drive-navy mb-1">Marc Lefebvre</h4>
+          <p class="text-drive-accent font-serif mb-3 italic">Expert Senior - 15 ans d'expérience</p>
+          <p class="text-sm text-drive-navy/70 leading-relaxed font-light">Spécialiste des profils anxieux, il privilégie une approche calme.</p>
+        </div>
+        <div class="group">
+          <div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 card-shadow">
+            <img alt="Élise" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400"/>
+          </div>
+          <h4 class="text-xl font-bold text-drive-navy mb-1">Élise Roussel</h4>
+          <p class="text-drive-accent font-serif mb-3 italic">Coach Conduite Eco-Responsable</p>
+          <p class="text-sm text-drive-navy/70 leading-relaxed font-light">Elle excelle dans la transmission des automatismes en milieu urbain.</p>
+        </div>
+        <div class="group">
+          <div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 card-shadow">
+            <img alt="Julien" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400"/>
+          </div>
+          <h4 class="text-xl font-bold text-drive-navy mb-1">Julien Morel</h4>
+          <p class="text-drive-accent font-serif mb-3 italic">Spécialiste Sécurité & Mécanique</p>
+          <p class="text-sm text-drive-navy/70 leading-relaxed font-light">Apporte une rigueur sécurisante dans une ambiance décontractée.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-drive-offwhite border-y border-drive-navy/5">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-12 tracking-tight text-drive-navy">La technologie au service du suivi</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6">
+          <div class="text-drive-accent text-4xl mb-6">📱</div>
+          <h4 class="font-bold text-xl text-drive-navy mb-3">Suivi Numérique</h4>
+          <p class="text-base text-drive-navy/60 leading-relaxed font-light">Une app d'apprentissage est disponible 24h/24 sur votre smartphone.</p>
+        </div>
+        <div class="p-6">
+          <div class="text-drive-accent text-4xl mb-6">⚡</div>
+          <h4 class="font-bold text-xl text-drive-navy mb-3">Réservation en ligne</h4>
+          <p class="text-base text-drive-navy/60 leading-relaxed font-light">Gérez votre planning en toute autonomie depuis votre espace élève.</p>
+        </div>
+        <div class="p-6">
+          <div class="text-drive-accent text-4xl mb-6">📊</div>
+          <h4 class="font-bold text-xl text-drive-navy mb-3">Stats de Progression</h4>
+          <p class="text-base text-drive-navy/60 leading-relaxed font-light">Visualisez vos points forts et les compétences restant à acquérir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-drive-offwhite" id="offres">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-drive-navy mb-4 tracking-tight">Nos Formations d'Excellence</h2>
+        <p class="text-drive-navy/60 max-w-2xl mx-auto text-lg">Des forfaits transparents, conçus pour s'adapter à votre rythme et à vos ambitions.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 items-center">
+        
+        <div class="bg-white p-10 rounded-2xl border border-drive-navy/5 card-shadow flex flex-col h-full">
+          <div class="mb-8 relative pb-6 border-b border-drive-navy/10 text-center">
+            <h3 class="text-2xl font-bold mb-2 text-drive-navy tracking-tight">Théorie & Code</h3>
+            <p class="text-sm text-drive-navy/50 mb-4 font-serif italic">Pour démarrer sereinement</p>
+            <div class="text-4xl font-bold text-drive-navy">290€</div>
+          </div>
+          <ul class="space-y-5 mb-10 flex-grow text-sm text-drive-navy/80 leading-relaxed font-light">
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
+              <span>Accès illimité à la plateforme e-learning (6 mois)</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
+              <span>Livre de code officiel inclus</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
+              <span>Ateliers thématiques en salle avec formateur</span>
+            </li>
+          </ul>
+          <button class="w-full py-3 border-2 border-drive-navy text-drive-navy rounded-xl font-bold hover:bg-drive-navy hover:text-white transition-all">Choisir cette formule</button>
+        </div>
+        
+        <div class="bg-drive-navy p-10 rounded-2xl border-4 border-drive-accent card-shadow flex flex-col h-full relative transform md:scale-105 z-10 shadow-2xl">
+          <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-drive-accent text-white px-6 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-md">Recommandé</span>
+          <div class="mb-8 relative pb-6 border-b border-white/10 text-center mt-2">
+            <h3 class="text-3xl font-bold mb-2 text-drive-offwhite tracking-tight">Formule Sérénité</h3>
+            <p class="text-sm text-drive-accent mb-4 font-serif italic">Permis B complet</p>
+            <div class="text-5xl font-bold text-drive-offwhite">1 850€</div>
+          </div>
+          <ul class="space-y-5 mb-10 flex-grow text-sm text-drive-offwhite/90 leading-relaxed font-light">
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent rounded-full flex items-center justify-center text-drive-navy font-bold mr-3 mt-0.5 shrink-0 text-xs">✓</span>
+              <span><strong class="text-white">30 heures</strong> de conduite individuelles</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent rounded-full flex items-center justify-center text-drive-navy font-bold mr-3 mt-0.5 shrink-0 text-xs">✓</span>
+              <span>Accompagnement sophrologie (gestion du stress)</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent rounded-full flex items-center justify-center text-drive-navy font-bold mr-3 mt-0.5 shrink-0 text-xs">✓</span>
+              <span>Conduite sur véhicules Premium (Golf 8)</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent rounded-full flex items-center justify-center text-drive-navy font-bold mr-3 mt-0.5 shrink-0 text-xs">✓</span>
+              <span>Présentation à l'examen prioritaire</span>
+            </li>
+          </ul>
+          <button class="w-full py-4 bg-drive-accent text-white rounded-xl font-bold btn-premium shadow-lg text-lg">S'inscrire maintenant</button>
+        </div>
+        
+        <div class="bg-white p-10 rounded-2xl border border-drive-navy/5 card-shadow flex flex-col h-full">
+          <div class="mb-8 relative pb-6 border-b border-drive-navy/10 text-center">
+            <h3 class="text-2xl font-bold mb-2 text-drive-navy tracking-tight">Formule Standard</h3>
+            <p class="text-sm text-drive-navy/50 mb-4 font-serif italic">L'essentiel pour réussir</p>
+            <div class="text-4xl font-bold text-drive-navy">1 290€</div>
+          </div>
+          <ul class="space-y-5 mb-10 flex-grow text-sm text-drive-navy/80 leading-relaxed font-light">
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
+              <span><strong class="text-drive-navy">20 heures</strong> de conduite (minimum légal)</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
+              <span>Accès au code en ligne</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
+              <span>Livret d'apprentissage numérique</span>
+            </li>
+          </ul>
+          <button class="w-full py-3 border-2 border-drive-navy text-drive-navy rounded-xl font-bold hover:bg-drive-navy hover:text-white transition-all">Choisir cette formule</button>
+        </div>
+        
+      </div>
+      <p class="text-center mt-8 text-sm text-drive-navy/50 font-light italic">* Facilités de paiement en 3x ou 4x sans frais disponibles pour toutes nos formules.</p>
+    </div>
+  </section>
+
+  <section class="py-24 bg-white" id="contact">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-drive-navy mb-4 tracking-tight">Nous trouver & Horaires</h2>
+        <p class="text-lg text-drive-navy/70 max-w-2xl mx-auto">Toutes les informations pour nous contacter ou vous rendre en agence.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="space-y-8 p-10 rounded-2xl border border-drive-navy/5 bg-drive-offwhite card-shadow flex flex-col justify-center">
+          <div class="flex items-center space-x-3 mb-6">
+            <div class="w-12 h-12 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </div>
+            <h2 class="text-3xl font-bold text-drive-navy tracking-tight">Notre Adresse</h2>
+          </div>
+          <div class="text-lg text-drive-navy/80 leading-relaxed font-light space-y-3">
+            <p class="font-semibold text-xl text-drive-navy">Drive Academy Paris</p>
+            <p>5 Rue de la Concorde,</p>
+            <p>75008 Paris, France</p>
+            <p class="pt-4 text-sm font-semibold">Contact : 01 23 45 67 89</p>
+          </div>
+        </div>
+        <div class="space-y-8 p-10 rounded-2xl border border-drive-navy/5 bg-white card-shadow flex flex-col justify-center">
+          <div class="flex items-center space-x-3 mb-6">
+            <div class="w-12 h-12 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </div>
+            <h2 class="text-3xl font-bold text-drive-navy tracking-tight">Horaires d'Ouverture</h2>
+          </div>
+          <div class="text-lg text-drive-navy/80 leading-relaxed font-light space-y-4">
+            <div class="flex justify-between items-center gap-4"><span class="font-semibold text-drive-navy">Lundi - Vendredi</span><span class="text-sm bg-drive-offwhite/80 p-1 px-3 rounded-full text-drive-navy whitespace-nowrap">8h30 - 19h00</span></div>
+            <div class="flex justify-between items-center gap-4"><span class="font-semibold text-drive-navy">Samedi</span><span class="text-sm bg-drive-offwhite/80 p-1 px-3 rounded-full text-drive-navy whitespace-nowrap">9h00 - 17h00</span></div>
+            <div class="flex justify-between items-center gap-4"><span class="font-semibold text-drive-navy">Dimanche</span><span class="text-sm bg-drive-offwhite/80 p-1 px-3 rounded-full text-drive-accent font-bold whitespace-nowrap">Fermé</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-white text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-6 text-drive-navy tracking-tight">Prêt à prendre la route avec confiance ?</h2>
+      <p class="text-drive-navy/60 mb-10 text-lg leading-relaxed">Rejoignez Drive Academy aujourd'hui et bénéficiez d'une évaluation gratuite de 30 minutes.</p>
+      <button class="px-10 py-5 bg-drive-navy text-white rounded-xl font-bold text-lg btn-premium">Réserver mon évaluation offerte</button>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-drive-navy py-12 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8 text-drive-offwhite/50">
+    <div class="text-2xl font-serif font-bold text-drive-offwhite">Drive Academy</div>
+    <div class="flex space-x-8 text-sm">
+      <a class="hover:text-drive-accent transition-colors uppercase tracking-widest" href="#">Mentions Légales</a>
+      <a class="hover:text-drive-accent transition-colors uppercase tracking-widest" href="#contact">Contact</a>
+    </div>
+    <div class="text-sm">© 2026 Drive Academy. Tous droits réservés.</div>
+  </div>
+</footer>
+
+</body>
+</html>
