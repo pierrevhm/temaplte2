@@ -1945,5 +1945,25 @@
   sendBtn.addEventListener('click', sendMessage);
   init();
 </script>
+  <!-- Toggle Button -->
+<button id="chat-toggle-btn" aria-label="Ouvrir le chat">
+  <span id="chat-badge">1</span>
+  <span class="icon-chat"><!-- icône SVG chat --></span>
+  <span class="icon-close"><!-- icône SVG croix --></span>
+</button>
+
+<!-- Chat Window -->
+<div id="chat-window">
+  <div id="chat-header">...</div>
+  <div id="chat-messages"></div>
+  <div id="chat-input-area">
+    <textarea id="chat-input"></textarea>
+    <button id="chat-send-btn"></button>
+  </div>
+</div>
+  <script>
+  const WEBHOOK_URL = 'https://n8n.srv959772.hstgr.cloud/webhook/41a0797f-1756-48da-b74b-4552a8a0171d';
+  // ... logique complète
+</script>
 </body>
 </html>
