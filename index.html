@@ -3,74 +3,1210 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Drive Academy | L'excellence de la conduite sereine</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'drive-navy': '#1A2A44',
-            'drive-offwhite': '#FAF9F6',
-            'drive-accent': '#C5A059',
-          },
-          fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Lato', 'sans-serif'],
-          },
-          borderRadius: {
-            'xl': '1.5rem',
-            '2xl': '2rem',
-          }
-        }
-      }
-    }
-  </script>
-  <style data-purpose="custom-typography">
-    h1, h2, h3, .font-elegant { font-family: 'Playfair Display', serif; }
-    body { font-family: 'Lato', sans-serif; background-color: #FAF9F6; color: #1A2A44; }
-    .text-balance { text-wrap: balance; }
-  </style>
-  <style data-purpose="ui-elements">
-    .card-shadow {
-      box-shadow: 0 10px 30px -5px rgba(26, 42, 68, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card-shadow:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px -10px rgba(26, 42, 68, 0.15);
-    }
-    .btn-premium { transition: all 0.3s ease; position: relative; overflow: hidden; }
-    .btn-premium:hover { letter-spacing: 1px; }
-  </style>
+  <title>Drive Academy | Le permis autrement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 
-  <!-- ===== CHATBOT STYLES ===== -->
-  <style data-purpose="chatbot">
-    #chat-toggle-btn {
+  <style>
+    /* ============================
+       RESET & VARIABLES
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080C10;
+      --bg2: #0C1117;
+      --bg3: #111820;
+      --cyan: #00E5CC;
+      --cyan-dim: rgba(0,229,204,0.12);
+      --cyan-glow: rgba(0,229,204,0.3);
+      --violet: #7C3AED;
+      --violet-dim: rgba(124,58,237,0.15);
+      --white: #F0F4FF;
+      --gray: #6B7A99;
+      --gray2: #3A4258;
+      --border: rgba(255,255,255,0.07);
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-display);
+      background: var(--bg);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+
+    /* ============================
+       CANVAS PARTICLES (bg)
+    ============================ */
+    #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.5; }
+
+    /* ============================
+       GLOW EFFECTS
+    ============================ */
+    .glow-cyan {
+      box-shadow: 0 0 40px var(--cyan-glow), 0 0 80px rgba(0,229,204,0.1);
+    }
+    .glow-text-cyan { text-shadow: 0 0 30px var(--cyan-glow); }
+    .glow-violet { box-shadow: 0 0 40px rgba(124,58,237,0.4); }
+
+    /* ============================
+       GLASS CARDS
+    ============================ */
+    .glass {
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+    }
+
+    /* ============================
+       NAV
+    ============================ */
+    nav {
       position: fixed;
-      bottom: 28px;
-      right: 28px;
-      z-index: 1000;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1A2A44, #2a3f66);
-      border: 2px solid #C5A059;
-      cursor: pointer;
-      box-shadow: 0 8px 32px rgba(26, 42, 68, 0.4), 0 2px 8px rgba(0,0,0,0.15);
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 40px;
+      height: 72px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      background: rgba(8,12,16,0.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo-dot {
+      width: 10px; height: 10px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--cyan);
+      animation: dotPulse 2s ease infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--cyan);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--bg);
+      background: var(--cyan);
+      padding: 10px 24px;
+      border-radius: 100px;
+      letter-spacing: 0.02em;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 32px var(--cyan-glow);
+    }
+
+    /* ============================
+       HERO
+    ============================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       justify-content: center;
+      padding: 120px 40px 80px;
+      overflow: hidden;
+    }
+
+    /* Animated grid background */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,204,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,204,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      animation: gridScroll 20s linear infinite;
+    }
+    @keyframes gridScroll {
+      from { background-position: 0 0; }
+      to { background-position: 60px 60px; }
+    }
+
+    /* Glowing orbs */
+    .hero-orb-1 {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,229,204,0.08) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
+      bottom: -100px; left: -100px;
+      pointer-events: none;
+      animation: orbFloat 10s ease-in-out infinite reverse;
+    }
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, -20px); }
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,229,204,0.08);
+      border: 1px solid rgba(0,229,204,0.2);
+      border-radius: 100px;
+      padding: 6px 16px 6px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+      animation: fadeUp 0.5s ease both 0.2s;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+      animation: dotPulse 1.5s ease infinite;
+    }
+
+    .hero-title {
+      font-size: clamp(56px, 9vw, 130px);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 36px;
+    }
+    .hero-title .line { display: block; overflow: hidden; }
+    .hero-title .line-inner {
+      display: block;
+      transform: translateY(110%);
+      animation: lineUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-title .line:nth-child(1) .line-inner { animation-delay: 0.3s; }
+    .hero-title .line:nth-child(2) .line-inner { animation-delay: 0.5s; }
+    .hero-title .line:nth-child(3) .line-inner { animation-delay: 0.7s; color: var(--cyan); }
+
+    @keyframes lineUp { to { transform: translateY(0); } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--gray);
+      max-width: 520px;
+      line-height: 1.7;
+      font-weight: 400;
+      margin-bottom: 48px;
+      animation: fadeUp 0.5s ease both 1.0s;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.5s ease both 1.2s;
+      margin-bottom: 72px;
+    }
+
+    .btn-glow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cyan);
+      color: var(--bg);
+      font-size: 15px;
+      font-weight: 800;
+      padding: 16px 36px;
+      border-radius: 100px;
+      letter-spacing: 0.01em;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 24px var(--cyan-glow);
+    }
+    .btn-glow:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 48px var(--cyan-glow), 0 8px 24px rgba(0,229,204,0.2);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 15px 30px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Hero stats strip */
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 640px;
+      animation: fadeUp 0.5s ease both 1.4s;
+    }
+    .hero-stat {
+      flex: 1;
+      padding: 20px 24px;
+      border-right: 1px solid var(--border);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hs-num {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .hs-num span { color: var(--cyan); }
+    .hs-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* Floating mockup */
+    .hero-mockup {
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 400px;
+      animation: mockupFloat 6s ease-in-out infinite, fadeUp 0.8s ease both 0.6s;
+    }
+    @keyframes mockupFloat {
+      0%, 100% { transform: translateY(-50%) translateY(0); }
+      50% { transform: translateY(-50%) translateY(-16px); }
+    }
+    .phone-frame {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 36px;
+      padding: 16px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+      position: relative;
+    }
+    .phone-notch {
+      width: 80px; height: 6px;
+      background: var(--bg3);
+      border-radius: 3px;
+      margin: 0 auto 20px;
+    }
+    .phone-screen {
+      background: var(--bg3);
+      border-radius: 24px;
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+    .ps-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .ps-greeting {
+      font-size: 10px;
+      color: var(--gray);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .ps-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--white);
+      margin-top: 2px;
+    }
+    .ps-avatar {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      border-radius: 12px;
+    }
+
+    .ps-card-next {
+      background: linear-gradient(135deg, rgba(0,229,204,0.15), rgba(124,58,237,0.1));
+      border: 1px solid rgba(0,229,204,0.2);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .pscn-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+    .pscn-time {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .pscn-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .pscn-tag {
+      font-size: 9px;
+      font-weight: 700;
+      background: rgba(0,229,204,0.15);
+      color: var(--cyan);
+      padding: 3px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .pscn-car {
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .ps-progress-section { margin-bottom: 16px; }
+    .pp-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .pp-bar {
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .pp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      border-radius: 2px;
+      animation: progressGrow 1.5s ease-out forwards;
+    }
+    @keyframes progressGrow { from { width: 0%; } }
+
+    .ps-modules {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .pm-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 4px;
+      text-align: center;
+    }
+    .pm-icon { font-size: 14px; margin-bottom: 3px; }
+    .pm-label {
+      font-size: 7px;
+      font-weight: 700;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .pm-ok { border-color: rgba(0,229,204,0.2); }
+    .pm-ok .pm-label { color: var(--cyan); }
+
+    /* ============================
+       SECTION COMMON
+    ============================ */
+    section { position: relative; z-index: 1; }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+    .section-tag::before { content: '//'; opacity: 0.5; }
+
+    .section-title {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+    .section-title em { font-style: italic; color: var(--cyan); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.up { opacity: 1; transform: translateY(0); }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.94);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-scale.up { opacity: 1; transform: scale(1); }
+
+    /* ============================
+       VEHICLES
+    ============================ */
+    .vehicles-section {
+      padding: 120px 40px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .vehicles-inner { max-width: 1200px; margin: 0 auto; }
+    .vehicles-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+    }
+    .vehicles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .vehicle-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      group: true;
+    }
+    .vc-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      filter: brightness(0.7) saturate(0.8);
+      transition: filter 0.5s ease, transform 0.6s ease;
+    }
+    .vehicle-card:hover .vc-img { filter: brightness(0.85) saturate(1.0); transform: scale(1.04); }
+    .vc-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,12,16,0.95) 0%, transparent 50%);
+    }
+    .vc-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 28px;
+    }
+    .vc-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--cyan);
+      background: rgba(0,229,204,0.1);
+      border: 1px solid rgba(0,229,204,0.25);
+      padding: 3px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .vc-name {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .vc-sub { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 400; }
+    .vc-glow {
+      position: absolute;
+      bottom: -20px; left: 50%;
+      transform: translateX(-50%);
+      width: 60%; height: 40px;
+      background: var(--cyan);
+      filter: blur(30px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .vehicle-card:hover .vc-glow { opacity: 0.15; }
+
+    /* ============================
+       FEATURES MARQUEE
+    ============================ */
+    .marquee-section {
+      padding: 32px 0;
+      background: var(--cyan);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee-item {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--bg);
+      padding: 0 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .marquee-item::after { content: '★'; font-size: 10px; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ============================
+       TEAM
+    ============================ */
+    .team-section {
+      padding: 120px 40px;
+      background: var(--bg);
+    }
+    .team-inner { max-width: 1200px; margin: 0 auto; }
+    .team-header { margin-bottom: 64px; }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .team-card {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .team-card:hover {
+      border-color: rgba(0,229,204,0.3);
+      transform: translateY(-6px);
+    }
+    .tc-img-wrap {
+      aspect-ratio: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .tc-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top;
+      filter: grayscale(80%) brightness(0.75);
+      transition: filter 0.4s ease, transform 0.5s ease;
+    }
+    .team-card:hover .tc-img { filter: grayscale(20%) brightness(0.9); transform: scale(1.04); }
+    .tc-stripe {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .team-card:hover .tc-stripe { transform: scaleX(1); }
+    .tc-info { padding: 20px; }
+    .tc-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .tc-role {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+    .tc-stats {
+      display: flex;
+      gap: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .tcs-n {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+    .tcs-l {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+    }
+
+    /* ============================
+       TECH
+    ============================ */
+    .tech-section {
+      padding: 120px 40px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+    .tech-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .tech-features { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+    .tech-feat {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 20px;
+      align-items: start;
+      transition: padding-left 0.25s ease;
+      cursor: default;
+    }
+    .tech-feat:hover { padding-left: 8px; }
+    .tf-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--cyan);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding-top: 3px;
+    }
+    .tf-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .tf-desc { font-size: 14px; color: var(--gray); line-height: 1.6; font-weight: 400; }
+
+    /* Big phone mockup */
+    .tech-mockup {
+      position: relative;
+    }
+    .big-phone {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 20px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04), 0 0 60px rgba(0,229,204,0.05);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .bp-notch {
+      width: 80px; height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px;
+      margin: 0 auto 24px;
+    }
+    .bp-screen { padding: 4px; }
+    .bp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .bp-app-name {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .bp-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9px;
+      color: var(--gray);
+      font-weight: 600;
+    }
+    .bp-status::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #4ade80;
+    }
+
+    .bp-hero-card {
+      background: linear-gradient(135deg, rgba(0,229,204,0.12), rgba(124,58,237,0.08));
+      border: 1px solid rgba(0,229,204,0.18);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .bphc-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+    .bphc-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .bphc-tags { display: flex; gap: 8px; }
+    .bphc-tag {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .bp-progress-row { margin-bottom: 14px; }
+    .bpr-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      margin-bottom: 6px;
+    }
+    .bpr-track {
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .bpr-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      animation: progressGrow 2s ease-out forwards;
+    }
+
+    .bp-modules {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .bm-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 4px;
+      text-align: center;
+    }
+    .bm-icon { font-size: 14px; margin-bottom: 3px; }
+    .bm-label { font-size: 7px; font-weight: 700; color: var(--gray); text-transform: uppercase; }
+    .bm-ok { border-color: rgba(0,229,204,0.2); }
+    .bm-ok .bm-label { color: var(--cyan); }
+
+    /* ============================
+       PRICING
+    ============================ */
+    .pricing-section {
+      padding: 120px 40px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .pricing-inner { max-width: 1200px; margin: 0 auto; }
+    .pricing-header { margin-bottom: 64px; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .price-card {
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .price-card:hover { transform: translateY(-4px); }
+    .price-card.featured {
+      border-color: rgba(0,229,204,0.3);
+      background: linear-gradient(180deg, rgba(0,229,204,0.06) 0%, var(--bg2) 100%);
+    }
+    .price-card.featured:hover { border-color: rgba(0,229,204,0.5); }
+
+    .pc-glow {
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 200px; height: 120px;
+      background: var(--cyan);
+      filter: blur(60px);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .price-card.featured .pc-glow { opacity: 0.1; }
+    .price-card:hover .pc-glow { opacity: 0.08; }
+
+    .pc-badge-wrap {
+      position: absolute;
+      top: -1px; right: 24px;
+    }
+    .pc-badge {
+      background: var(--cyan);
+      color: var(--bg);
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 5px 14px 4px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .pc-type {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 12px;
+    }
+    .pc-name {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    .pc-tagline {
+      font-size: 14px;
+      color: var(--gray);
+      font-weight: 400;
+      margin-bottom: 32px;
+    }
+
+    .pc-features {
+      list-style: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .pf-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: rgba(240,244,255,0.75);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pf-item::before {
+      content: '✓';
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .pc-price {
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .price-card.featured .pc-price { color: var(--cyan); }
+
+    .pc-note {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 24px;
+    }
+
+    .btn-price-default {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 12px;
+      font-family: inherit;
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-price-default:hover { border-color: var(--cyan); background: var(--cyan-dim); color: var(--cyan); }
+
+    .btn-price-featured {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--cyan);
+      color: var(--bg);
+      font-size: 14px;
+      font-weight: 800;
+      border-radius: 12px;
+      font-family: inherit;
+      letter-spacing: 0.02em;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+    .btn-price-featured:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 32px var(--cyan-glow);
+    }
+
+    /* ============================
+       CTA FINAL
+    ============================ */
+    .cta-section {
+      padding: 120px 40px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(0,229,204,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .cta-section h2 {
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .cta-section h2 em { font-style: italic; color: var(--cyan); }
+    .cta-section p {
+      font-size: 17px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    /* ============================
+       CONTACT
+    ============================ */
+    .contact-section {
+      padding: 120px 40px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .contact-card {
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 36px;
+    }
+    .contact-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+    .contact-items { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+    .ci-item { display: flex; gap: 14px; align-items: flex-start; }
+    .ci-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: var(--cyan-dim);
+      border: 1px solid rgba(0,229,204,0.15);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ci-icon svg { color: var(--cyan); width: 18px; height: 18px; }
+    .ci-label { font-size: 11px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .ci-value { font-size: 15px; font-weight: 600; color: var(--white); }
+
+    .hours-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .hours-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .hi-day { color: rgba(240,244,255,0.6); font-weight: 500; }
+    .hi-hours { color: var(--cyan); font-weight: 700; font-family: var(--font-mono); font-size: 13px; }
+    .hi-closed { color: var(--gray); font-weight: 600; }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      padding: 40px;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 13px; color: var(--gray); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cyan); }
+    .footer-copy { font-size: 12px; color: var(--gray2); font-family: var(--font-mono); }
+
+    /* ============================
+       CHATBOT
+    ============================ */
+    #chat-toggle-btn {
+      position: fixed; bottom: 28px; right: 28px;
+      z-index: 1000; width: 60px; height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), #00b4d8);
+      border: none; cursor: pointer;
+      box-shadow: 0 0 24px var(--cyan-glow), 0 4px 16px rgba(0,0,0,0.3);
+      display: flex; align-items: center; justify-content: center;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     #chat-toggle-btn:hover {
       transform: scale(1.08);
-      box-shadow: 0 12px 40px rgba(197, 160, 89, 0.35), 0 2px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 0 40px var(--cyan-glow), 0 4px 16px rgba(0,0,0,0.3);
     }
-    #chat-toggle-btn:active { transform: scale(0.96); }
-    #chat-toggle-btn .icon-chat,
-    #chat-toggle-btn .icon-close {
+    #chat-toggle-btn .icon-chat, #chat-toggle-btn .icon-close {
       position: absolute;
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
@@ -79,536 +1215,588 @@
     #chat-toggle-btn.open .icon-close { opacity: 1; transform: rotate(0deg) scale(1); }
 
     #chat-badge {
-      position: absolute;
-      top: -2px;
-      right: -2px;
-      width: 18px;
-      height: 18px;
-      background: #C5A059;
-      border-radius: 50%;
-      border: 2px solid white;
-      font-size: 10px;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      transition: opacity 0.2s ease;
+      position: absolute; top: -2px; right: -2px;
+      width: 18px; height: 18px;
+      background: #ef4444; border-radius: 50%;
+      border: 2px solid var(--bg); font-size: 9px;
+      color: white; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; transition: opacity 0.2s ease;
     }
 
     #chat-window {
-      position: fixed;
-      bottom: 100px;
-      right: 28px;
-      z-index: 999;
-      width: 380px;
-      max-height: 560px;
-      border-radius: 20px;
-      background: #FAF9F6;
-      border: 1px solid rgba(197, 160, 89, 0.25);
-      box-shadow: 0 24px 64px rgba(26, 42, 68, 0.22), 0 4px 16px rgba(0,0,0,0.08);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+      position: fixed; bottom: 100px; right: 28px;
+      z-index: 999; width: 380px; max-height: 560px;
+      border-radius: 24px;
+      background: rgba(12,17,23,0.85);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0,229,204,0.15);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 0 40px rgba(0,229,204,0.05);
+      display: flex; flex-direction: column; overflow: hidden;
       transform: scale(0.85) translateY(20px);
       transform-origin: bottom right;
-      opacity: 0;
-      pointer-events: none;
+      opacity: 0; pointer-events: none;
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
     }
-    #chat-window.open {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-      pointer-events: all;
-    }
+    #chat-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
 
     #chat-header {
       padding: 18px 20px 16px;
-      background: #1A2A44;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
-      border-bottom: 2px solid #C5A059;
+      background: linear-gradient(135deg, rgba(0,229,204,0.15), rgba(124,58,237,0.1));
+      border-bottom: 1px solid rgba(0,229,204,0.1);
+      display: flex; align-items: center; gap: 12px; flex-shrink: 0;
     }
     #chat-header .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: rgba(197, 160, 89, 0.2);
-      border: 1px solid rgba(197, 160, 89, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--cyan-dim); border: 1px solid rgba(0,229,204,0.2);
+      display: flex; align-items: center; justify-content: center;
     }
-    #chat-header .info h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #FAF9F6;
-      font-family: 'Playfair Display', serif;
-      line-height: 1.2;
-    }
+    #chat-header .info h4 { font-size: 15px; font-weight: 800; color: var(--white); }
     #chat-header .info p {
-      font-size: 11px;
-      color: rgba(250, 249, 246, 0.65);
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      font-size: 11px; color: rgba(255,255,255,0.45);
+      display: flex; align-items: center; gap: 4px;
     }
     #chat-header .info p::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: #4ade80;
-      border-radius: 50%;
-      display: inline-block;
+      content: ''; width: 6px; height: 6px;
+      background: #4ade80; border-radius: 50%;
+      box-shadow: 0 0 6px #4ade80; display: inline-block;
     }
 
     #chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      flex: 1; overflow-y: auto; padding: 16px;
+      display: flex; flex-direction: column; gap: 10px;
       scroll-behavior: smooth;
-      background: #FAF9F6;
     }
-    #chat-messages::-webkit-scrollbar { width: 4px; }
-    #chat-messages::-webkit-scrollbar-track { background: transparent; }
-    #chat-messages::-webkit-scrollbar-thumb { background: rgba(197, 160, 89, 0.3); border-radius: 99px; }
+    #chat-messages::-webkit-scrollbar { width: 3px; }
+    #chat-messages::-webkit-scrollbar-thumb { background: rgba(0,229,204,0.2); border-radius: 99px; }
 
     .msg-row { display: flex; align-items: flex-end; gap: 8px; }
     .msg-row.user { flex-direction: row-reverse; }
-
     .msg-avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 7px;
-      background: #1A2A44;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--cyan-dim); border: 1px solid rgba(0,229,204,0.2);
+      display: flex; align-items: center; justify-content: center;
     }
-
     .msg-bubble {
-      max-width: 78%;
-      padding: 10px 14px;
-      border-radius: 16px;
-      font-size: 13.5px;
-      line-height: 1.5;
-      word-wrap: break-word;
-      font-family: 'Lato', sans-serif;
+      max-width: 78%; padding: 10px 14px; border-radius: 16px;
+      font-size: 13.5px; line-height: 1.5; word-wrap: break-word;
     }
     .msg-row.bot .msg-bubble {
-      background: white;
-      border: 1px solid rgba(26, 42, 68, 0.1);
-      color: #1A2A44;
-      border-bottom-left-radius: 5px;
-      box-shadow: 0 2px 8px rgba(26, 42, 68, 0.06);
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--white); border-bottom-left-radius: 4px;
     }
     .msg-row.user .msg-bubble {
-      background: #1A2A44;
-      color: #FAF9F6;
-      border-bottom-right-radius: 5px;
-      box-shadow: 0 4px 12px rgba(26, 42, 68, 0.25);
+      background: linear-gradient(135deg, var(--cyan), #00b4d8);
+      color: var(--bg); border-bottom-right-radius: 4px; font-weight: 600;
     }
-
-    .msg-time { font-size: 10px; color: #94a3b8; padding: 0 4px; margin-top: 2px; }
+    .msg-time { font-size: 10px; color: var(--gray2); padding: 0 4px; margin-top: 2px; }
     .msg-row.user .msg-time { text-align: right; }
 
-    .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 4px 2px; }
+    .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 12px 16px; }
     .typing-dot {
-      width: 6px; height: 6px;
-      background: #C5A059;
+      width: 6px; height: 6px; background: var(--cyan);
       border-radius: 50%;
       animation: typing-bounce 1.2s infinite ease-in-out;
     }
     .typing-dot:nth-child(1) { animation-delay: 0s; }
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; background: var(--gray); }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; background: var(--gray); }
     @keyframes typing-bounce {
       0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
       40% { transform: translateY(-6px); opacity: 1; }
     }
 
     #chat-input-area {
-      padding: 12px 14px;
-      border-top: 1px solid rgba(26, 42, 68, 0.1);
-      display: flex;
-      align-items: flex-end;
-      gap: 8px;
-      flex-shrink: 0;
-      background: white;
+      padding: 12px 14px; border-top: 1px solid rgba(0,229,204,0.08);
+      display: flex; align-items: flex-end; gap: 8px; flex-shrink: 0;
+      background: rgba(255,255,255,0.02);
     }
     #chat-input {
-      flex: 1;
-      background: #FAF9F6;
-      border: 1px solid rgba(26, 42, 68, 0.15);
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 13.5px;
-      font-family: 'Lato', sans-serif;
-      color: #1A2A44;
-      resize: none;
-      outline: none;
-      min-height: 42px;
-      max-height: 100px;
-      line-height: 1.5;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      flex: 1; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); border-radius: 14px;
+      padding: 10px 14px; font-size: 13.5px; font-family: inherit;
+      color: var(--white); resize: none; outline: none;
+      min-height: 42px; max-height: 100px; line-height: 1.5;
+      transition: border-color 0.2s ease;
     }
-    #chat-input:focus {
-      border-color: #C5A059;
-      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
-    }
-    #chat-input::placeholder { color: #94a3b8; }
-
+    #chat-input:focus { border-color: rgba(0,229,204,0.4); }
+    #chat-input::placeholder { color: var(--gray2); }
     #chat-send-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 11px;
-      background: #1A2A44;
-      border: 1px solid #C5A059;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform 0.15s ease, background 0.2s ease;
-      box-shadow: 0 4px 12px rgba(26, 42, 68, 0.25);
+      width: 42px; height: 42px; border-radius: 12px;
+      background: var(--cyan); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: transform 0.15s, opacity 0.15s;
+      box-shadow: 0 0 16px var(--cyan-glow);
     }
-    #chat-send-btn:hover:not(:disabled) { background: #C5A059; transform: scale(1.06); }
-    #chat-send-btn:active:not(:disabled) { transform: scale(0.94); }
-    #chat-send-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    #chat-send-btn:hover:not(:disabled) { transform: scale(1.06); }
+    #chat-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .msg-error .msg-bubble { background: rgba(239,68,68,0.1) !important; border-color: rgba(239,68,68,0.3) !important; color: #fca5a5 !important; }
 
-    .msg-error .msg-bubble {
-      background: rgba(254, 226, 226, 0.9) !important;
-      border-color: rgba(252, 165, 165, 0.5) !important;
-      color: #dc2626 !important;
-    }
-
-    @media (max-width: 480px) {
-      #chat-window { width: calc(100vw - 32px); right: 16px; bottom: 90px; }
-      #chat-toggle-btn { right: 16px; bottom: 16px; }
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 20px 60px; }
+      .hero-mockup { display: none; }
+      .vehicles-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .tech-inner { grid-template-columns: 1fr; gap: 48px; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .vehicles-section, .team-section, .tech-section, .pricing-section, .contact-section { padding: 80px 20px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      #chat-window { width: calc(100vw - 32px); right: 16px; }
     }
   </style>
 </head>
-<body class="antialiased">
+<body>
 
-<nav class="sticky top-0 z-50 bg-drive-offwhite/90 backdrop-blur-md border-b border-drive-navy/10">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-20">
-      <div class="flex items-center space-x-2">
-        <span class="text-2xl font-serif font-bold tracking-tight text-drive-navy">Drive Academy</span>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    DRIVE<span style="color:var(--cyan)">_</span>ACADEMY
+  </div>
+  <ul class="nav-links">
+    <li><a href="#vehicles">Véhicules</a></li>
+    <li><a href="#team">Équipe</a></li>
+    <li><a href="#tech">App</a></li>
+    <li><a href="#offers">Forfaits</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#offers" class="nav-cta">Espace Élève →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+
+  <div class="hero-inner">
+    <div style="max-width:700px">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        L'apprentissage réinventé
       </div>
-      <div class="hidden md:flex space-x-10 items-center">
-        <a class="text-sm font-medium hover:text-drive-accent transition-colors uppercase tracking-widest" href="#equipements">Véhicules</a>
-        <a class="text-sm font-medium hover:text-drive-accent transition-colors uppercase tracking-widest" href="#equipe">L'Équipe</a>
-        <a class="text-sm font-medium hover:text-drive-accent transition-colors uppercase tracking-widest" href="#offres">Nos Offres</a>
-        <a class="bg-drive-navy text-drive-offwhite px-6 py-2 rounded-full text-sm font-semibold btn-premium" href="#">S'inscrire</a>
+      <h1 class="hero-title">
+        <span class="line"><span class="line-inner">Conduisez</span></span>
+        <span class="line"><span class="line-inner">vers le futur</span></span>
+        <span class="line"><span class="line-inner">avec style.</span></span>
+      </h1>
+      <p class="hero-sub">Une expérience digitale fluide pour ton permis. Suivi en temps réel, moniteurs certifiés, véhicules premium. Le permis autrement.</p>
+      <div class="hero-actions">
+        <a href="#offers" class="btn-glow">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          S'inscrire maintenant
+        </a>
+        <a href="#tech" class="btn-ghost">Voir l'app →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hs-num"><span id="stat1">0</span><span>%</span></div>
+          <div class="hs-label">Taux de réussite</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hs-num"><span id="stat2">0</span><span>+</span></div>
+          <div class="hs-label">Élèves formés</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hs-num"><span id="stat3">0</span><span>j</span></div>
+          <div class="hs-label">Stage express</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating phone mockup -->
+    <div class="hero-mockup">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="ps-top">
+            <div><div class="ps-greeting">Bonjour,</div><div class="ps-name">Thomas D.</div></div>
+            <div class="ps-avatar"></div>
+          </div>
+          <div class="ps-card-next">
+            <div class="pscn-label">Prochaine leçon</div>
+            <div class="pscn-time">Demain · 14:00</div>
+            <div class="pscn-footer">
+              <div class="pscn-tag">Avec Marc A.</div>
+              <div class="pscn-car">BMW Série 1</div>
+            </div>
+          </div>
+          <div class="ps-progress-section">
+            <div class="pp-header"><span>Progression</span><span style="color:var(--cyan)">72%</span></div>
+            <div class="pp-bar"><div class="pp-fill" style="width:72%"></div></div>
+            <div class="pp-header"><span>Code de la route</span><span style="color:#4ade80">89%</span></div>
+            <div class="pp-bar"><div class="pp-fill" style="width:89%;background:linear-gradient(90deg,#4ade80,var(--cyan))"></div></div>
+          </div>
+          <div class="ps-modules">
+            <div class="pm-item pm-ok"><div class="pm-icon">🚦</div><div class="pm-label">Priorités</div></div>
+            <div class="pm-item pm-ok"><div class="pm-icon">🛣️</div><div class="pm-label">Autoroute</div></div>
+            <div class="pm-item"><div class="pm-icon">🔄</div><div class="pm-label">Créneaux</div></div>
+            <div class="pm-item pm-ok"><div class="pm-icon">⚡</div><div class="pm-label">Éco</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</nav>
+</section>
 
-<main>
-  <section class="relative h-[85vh] flex items-center overflow-hidden bg-drive-navy">
-    <div class="absolute inset-0 z-0">
-      <img alt="Route côtière sereine" class="w-full h-full object-cover opacity-30" src="https://images.unsplash.com/photo-1630406144797-821be1f35d75?q=80&w=1170&auto=format&fit=crop"/>
-      <div class="absolute inset-0 bg-gradient-to-r from-drive-navy via-drive-navy/80 to-transparent"></div>
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">Taux réussite 98%</div>
+    <div class="marquee-item">Moniteurs certifiés</div>
+    <div class="marquee-item">BMW Série 1 · Tesla Model 3</div>
+    <div class="marquee-item">App Maestro</div>
+    <div class="marquee-item">Stage express 15 jours</div>
+    <div class="marquee-item">Code illimité 6 mois</div>
+    <div class="marquee-item">Paris 11ème</div>
+    <div class="marquee-item">Taux réussite 98%</div>
+    <div class="marquee-item">Moniteurs certifiés</div>
+    <div class="marquee-item">BMW Série 1 · Tesla Model 3</div>
+    <div class="marquee-item">App Maestro</div>
+    <div class="marquee-item">Stage express 15 jours</div>
+    <div class="marquee-item">Code illimité 6 mois</div>
+    <div class="marquee-item">Paris 11ème</div>
+  </div>
+</div>
+
+<!-- VEHICLES -->
+<section class="vehicles-section" id="vehicles">
+  <div class="vehicles-inner">
+    <div class="vehicles-header">
+      <div>
+        <div class="section-tag reveal">La Flotte</div>
+        <h2 class="section-title reveal">Véhicules<br/><em>Premium</em></h2>
+      </div>
+      <p style="font-size:15px;color:var(--gray);max-width:280px;line-height:1.6;font-weight:400" class="reveal">Double commande intégrée sur tous les véhicules. Dernière génération.</p>
     </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-2xl">
-        <span class="inline-block text-drive-accent font-semibold tracking-[0.2em] uppercase mb-4 text-sm">L'excellence au volant</span>
-        <h1 class="text-5xl md:text-7xl font-bold text-drive-offwhite mb-6 leading-tight text-balance">La conduite, avec sérénité.</h1>
-        <p class="text-lg md:text-xl text-drive-offwhite/80 mb-10 leading-relaxed font-light">
-          Une approche pédagogique haut de gamme, centrée sur la patience et l'excellence technique. Apprenez à votre rythme dans un environnement sécurisant.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a class="px-8 py-4 bg-drive-accent text-white rounded-xl font-bold text-center btn-premium" href="#offres">Découvrir nos offres</a>
-          <a class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-xl font-bold text-center hover:bg-white/20 transition-all" href="#equipements">Notre flotte sécurisée</a>
+    <div class="vehicles-grid reveal-scale">
+      <div class="vehicle-card">
+        <img class="vc-img" src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=1200" alt="BMW Série 1"/>
+        <div class="vc-overlay"></div>
+        <div class="vc-glow"></div>
+        <div class="vc-content">
+          <div class="vc-badge">Millésime 2024 · Manuelle</div>
+          <div class="vc-name">BMW SÉRIE 1</div>
+          <div class="vc-sub">Boîte manuelle · Pack M-Sport · Double commande</div>
+        </div>
+      </div>
+      <div class="vehicle-card">
+        <img class="vc-img" src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=1200" alt="Tesla Model 3"/>
+        <div class="vc-overlay"></div>
+        <div class="vc-glow"></div>
+        <div class="vc-content">
+          <div class="vc-badge">Millésime 2024 · Auto</div>
+          <div class="vc-name">TESLA MODEL 3</div>
+          <div class="vc-sub">Boîte automatique · 100% Électrique · Autopilot</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="py-24 bg-drive-navy text-drive-offwhite" id="equipements">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div class="space-y-12">
+<!-- TEAM -->
+<section class="team-section" id="team">
+  <div class="team-inner">
+    <div class="team-header">
+      <div class="section-tag reveal">L'Équipe</div>
+      <h2 class="section-title reveal">Tes moniteurs,<br/><em>tes alliés.</em></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="tc-img-wrap">
+          <img class="tc-img" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600" alt="Marc Aubert"/>
+          <div class="tc-stripe"></div>
+        </div>
+        <div class="tc-info">
+          <div class="tc-name">Marc Aubert</div>
+          <div class="tc-role">Expert Sécurité · 12 ans</div>
+          <div class="tc-stats">
+            <div><div class="tcs-n">340</div><div class="tcs-l">Élèves</div></div>
+            <div><div class="tcs-n">99%</div><div class="tcs-l">Satisfait</div></div>
+            <div><div class="tcs-n">1er</div><div class="tcs-l">Examen</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.1s">
+        <div class="tc-img-wrap">
+          <img class="tc-img" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600" alt="Sophie Morel"/>
+          <div class="tc-stripe"></div>
+        </div>
+        <div class="tc-info">
+          <div class="tc-name">Sophie Morel</div>
+          <div class="tc-role">Éco-conduite · 8 ans</div>
+          <div class="tc-stats">
+            <div><div class="tcs-n">280</div><div class="tcs-l">Élèves</div></div>
+            <div><div class="tcs-n">97%</div><div class="tcs-l">Satisfait</div></div>
+            <div><div class="tcs-n">EV</div><div class="tcs-l">Certifiée</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.2s">
+        <div class="tc-img-wrap">
+          <img class="tc-img" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=600" alt="Léo Bertrand"/>
+          <div class="tc-stripe"></div>
+        </div>
+        <div class="tc-info">
+          <div class="tc-name">Léo Bertrand</div>
+          <div class="tc-role">Coach Motivation · 6 ans</div>
+          <div class="tc-stats">
+            <div><div class="tcs-n">220</div><div class="tcs-l">Élèves</div></div>
+            <div><div class="tcs-n">98%</div><div class="tcs-l">Satisfait</div></div>
+            <div><div class="tcs-n">15j</div><div class="tcs-l">Record</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="tech-section" id="tech">
+  <div class="tech-inner">
+    <div>
+      <div class="section-tag reveal-left">Technologie</div>
+      <h2 class="section-title reveal-left" style="transform:translateX(-30px)">L'app qui<br/><em>change tout.</em></h2>
+      <div class="tech-features">
+        <div class="tech-feat reveal-left">
+          <span class="tf-num">01</span>
+          <div><div class="tf-title">Feedback Live</div><div class="tf-desc">Compte-rendu détaillé après chaque heure de conduite. Tes points forts et axes de progrès, en direct.</div></div>
+        </div>
+        <div class="tech-feat reveal-left" style="transition-delay:0.1s">
+          <span class="tf-num">02</span>
+          <div><div class="tf-title">Planning Intelligent</div><div class="tf-desc">Réserve ou déplace tes cours en 2 secondes. Rappels auto, zéro oubli.</div></div>
+        </div>
+        <div class="tech-feat reveal-left" style="transition-delay:0.2s">
+          <span class="tf-num">03</span>
+          <div><div class="tf-title">Code en Ligne</div><div class="tf-desc">Plateforme code illimitée pendant 6 mois. Mode examen, entraînement adaptatif.</div></div>
+        </div>
+        <div class="tech-feat reveal-left" style="transition-delay:0.3s">
+          <span class="tf-num">04</span>
+          <div><div class="tf-title">Livret Numérique</div><div class="tf-desc">Toute ta progression en un seul endroit. Validations en temps réel par ton moniteur.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="tech-mockup reveal">
+      <div class="big-phone">
+        <div class="bp-notch"></div>
+        <div class="bp-screen">
+          <div class="bp-header">
+            <div class="bp-app-name">MAESTRO_</div>
+            <div class="bp-status">En ligne</div>
+          </div>
+          <div class="bp-hero-card">
+            <div class="bphc-label">Prochaine leçon</div>
+            <div class="bphc-value">Demain · 14h00</div>
+            <div class="bphc-tags">
+              <div class="bphc-tag">Marc A.</div>
+              <div class="bphc-tag">BMW Série 1</div>
+              <div class="bphc-tag">Paris 11e</div>
+            </div>
+          </div>
+          <div class="bp-progress-row">
+            <div class="bpr-labels"><span>Progression conduite</span><span style="color:var(--cyan)">72%</span></div>
+            <div class="bpr-track"><div class="bpr-fill" style="width:72%"></div></div>
+          </div>
+          <div class="bp-progress-row">
+            <div class="bpr-labels"><span>Code de la route</span><span style="color:#4ade80">89%</span></div>
+            <div class="bpr-track"><div class="bpr-fill" style="width:89%;background:linear-gradient(90deg,#4ade80,var(--cyan))"></div></div>
+          </div>
+          <div class="bp-modules">
+            <div class="bm-item bm-ok"><div class="bm-icon">🚦</div><div class="bm-label">Priorités ✓</div></div>
+            <div class="bm-item bm-ok"><div class="bm-icon">🛣️</div><div class="bm-label">Autoroute ✓</div></div>
+            <div class="bm-item"><div class="bm-icon">🔄</div><div class="bm-label">Créneaux</div></div>
+            <div class="bm-item bm-ok"><div class="bm-icon">🌧️</div><div class="bm-label">Pluie ✓</div></div>
+            <div class="bm-item"><div class="bm-icon">🌙</div><div class="bm-label">Nuit</div></div>
+            <div class="bm-item bm-ok"><div class="bm-icon">🏙️</div><div class="bm-label">Ville ✓</div></div>
+            <div class="bm-item bm-ok"><div class="bm-icon">⚡</div><div class="bm-label">Éco ✓</div></div>
+            <div class="bm-item"><div class="bm-icon">🧭</div><div class="bm-label">GPS</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="offers">
+  <div class="pricing-inner">
+    <div class="pricing-header">
+      <div class="section-tag reveal">Tarifs</div>
+      <h2 class="section-title reveal">Choisis ton<br/><em>niveau.</em></h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="pc-glow"></div>
+        <div class="pc-type">Permis B</div>
+        <div class="pc-name">L'Essentiel</div>
+        <div class="pc-tagline">Le minimum légal, exécuté à la perfection.</div>
+        <ul class="pc-features">
+          <li class="pf-item">Évaluation initiale de départ</li>
+          <li class="pf-item">Code en ligne illimité (6 mois)</li>
+          <li class="pf-item">20h de conduite boîte manuelle</li>
+          <li class="pf-item">Livret numérique Maestro</li>
+        </ul>
+        <div class="pc-price">899€</div>
+        <div class="pc-note">Financement disponible</div>
+        <button class="btn-price-default">Choisir ce forfait</button>
+      </div>
+
+      <div class="price-card featured reveal" style="transition-delay:0.1s">
+        <div class="pc-glow"></div>
+        <div class="pc-badge-wrap"><div class="pc-badge">⚡ Populaire</div></div>
+        <div class="pc-type">Permis B+</div>
+        <div class="pc-name">Liberty 30h</div>
+        <div class="pc-tagline">La formation complète pour réussir sereinement.</div>
+        <ul class="pc-features">
+          <li class="pf-item">Tout l'Essentiel 20h inclus</li>
+          <li class="pf-item">+10h de conduite bonus</li>
+          <li class="pf-item">Module éco-conduite avancé</li>
+          <li class="pf-item">Inscription prioritaire examen</li>
+          <li class="pf-item">Accès Tesla Model 3 électrique</li>
+        </ul>
+        <div class="pc-price">1249€</div>
+        <div class="pc-note">Le choix le plus populaire</div>
+        <button class="btn-price-featured">Choisir Liberty →</button>
+      </div>
+
+      <div class="price-card reveal" style="transition-delay:0.2s">
+        <div class="pc-glow"></div>
+        <div class="pc-type">Express</div>
+        <div class="pc-name">Vitesse Max</div>
+        <div class="pc-tagline">Le permis accéléré en 15 jours chrono.</div>
+        <ul class="pc-features">
+          <li class="pf-item">Stage intensif 2 semaines</li>
+          <li class="pf-item">30h de conduite garanties</li>
+          <li class="pf-item">Moniteur exclusif dédié</li>
+          <li class="pf-item">Date d'examen sécurisée</li>
+        </ul>
+        <div class="pc-price">1590€</div>
+        <div class="pc-note">Résultats garantis</div>
+        <button class="btn-price-default">Choisir ce forfait</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="reveal">Prêt à<br/><em>prendre la route ?</em></h2>
+    <p class="reveal">Rejoins les 500+ élèves qui ont obtenu leur permis avec Drive Academy cette année. Commence dès aujourd'hui.</p>
+    <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="#offers" class="btn-glow">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Démarrer maintenant
+      </a>
+      <a href="#contact" class="btn-ghost">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div style="max-width:1200px;margin:0 auto 56px">
+    <div class="section-tag reveal">Contact</div>
+    <h2 class="section-title reveal">Viens nous<br/><em>voir.</em></h2>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-card reveal">
+      <div class="contact-title">Coordonnées</div>
+      <ul class="contact-items">
+        <li class="ci-item">
+          <div class="ci-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
           <div>
-            <h2 class="text-4xl font-bold mb-6 text-drive-offwhite text-balance">Votre sécurité, notre priorité absolue</h2>
-            <p class="text-drive-offwhite/70 text-lg">Nous investissons dans les meilleures technologies et infrastructures pour garantir un environnement d'apprentissage optimal.</p>
+            <div class="ci-label">Adresse</div>
+            <div class="ci-value">42 Avenue de la République<br/>75011 Paris, France</div>
           </div>
-          <div class="grid sm:grid-cols-2 gap-8">
-            <div class="space-y-3">
-              <div class="w-12 h-12 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-              </div>
-              <h4 class="font-bold text-xl text-drive-offwhite">Double Commande</h4>
-              <p class="text-sm text-drive-offwhite/60">Flotte de véhicules récents équipés des dernières technologies de sécurité active et passive.</p>
-            </div>
-            <div class="space-y-3">
-              <div class="w-12 h-12 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-              </div>
-              <h4 class="font-bold text-xl text-drive-offwhite">Citadines Agiles</h4>
-              <p class="text-sm text-drive-offwhite/60">Maniabilité exceptionnelle et motorisations modernes pour une conduite urbaine tout en agilité.</p>
-            </div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.48-4.09-7.074-7.07l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-        </div>
-        <div class="relative group">
-          <div class="absolute -inset-4 bg-drive-accent/20 rounded-2xl blur-2xl group-hover:blur-3xl transition-all"></div>
-          <img alt="Berline premium de l'école - VW Golf" class="relative rounded-2xl border border-white/10 shadow-2xl w-full h-[400px] object-cover" src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=1200"/>
-        </div>
-      </div>
+          <div>
+            <div class="ci-label">Téléphone</div>
+            <div class="ci-value">01 23 45 67 89</div>
+          </div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-value">contact@drive-academy.fr</div>
+          </div>
+        </li>
+      </ul>
     </div>
-  </section>
+    <div class="contact-card reveal">
+      <div class="contact-title">Horaires d'ouverture</div>
+      <ul class="hours-list">
+        <li class="hours-item"><span class="hi-day">Lundi – Vendredi</span><span class="hi-hours">09:00 – 19:00</span></li>
+        <li class="hours-item"><span class="hi-day">Samedi</span><span class="hi-hours">09:00 – 16:00</span></li>
+        <li class="hours-item"><span class="hi-day">Dimanche &amp; Jours Fériés</span><span class="hi-closed">Fermé</span></li>
+      </ul>
+      <p style="font-size:12px;color:var(--gray);margin-top:16px;font-style:italic;line-height:1.5">* Les leçons peuvent être programmées dès 7h avec ton moniteur.</p>
+    </div>
+  </div>
+</section>
 
-  <section class="py-24 bg-white" id="equipe">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-drive-navy mb-4 text-balanceTracking tight">Une équipe bienveillante</h2>
-        <p class="text-lg text-drive-navy/70 max-w-2xl mx-auto">Nos instructeurs sont des pédagogues certifiés qui mettent la patience au cœur de leur enseignement.</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-12">
-        <div class="group">
-          <div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 card-shadow">
-            <img alt="Marc" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400"/>
-          </div>
-          <h4 class="text-xl font-bold text-drive-navy mb-1">Marc Lefebvre</h4>
-          <p class="text-drive-accent font-serif mb-3 italic">Expert Senior - 15 ans d'expérience</p>
-          <p class="text-sm text-drive-navy/70 leading-relaxed font-light">Spécialiste des profils anxieux, il privilégie une approche calme.</p>
-        </div>
-        <div class="group">
-          <div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 card-shadow">
-            <img alt="Élise" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400"/>
-          </div>
-          <h4 class="text-xl font-bold text-drive-navy mb-1">Élise Roussel</h4>
-          <p class="text-drive-accent font-serif mb-3 italic">Coach Conduite Eco-Responsable</p>
-          <p class="text-sm text-drive-navy/70 leading-relaxed font-light">Elle excelle dans la transmission des automatismes en milieu urbain.</p>
-        </div>
-        <div class="group">
-          <div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 card-shadow">
-            <img alt="Julien" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400"/>
-          </div>
-          <h4 class="text-xl font-bold text-drive-navy mb-1">Julien Morel</h4>
-          <p class="text-drive-accent font-serif mb-3 italic">Spécialiste Sécurité & Mécanique</p>
-          <p class="text-sm text-drive-navy/70 leading-relaxed font-light">Apporte une rigueur sécurisante dans une ambiance décontractée.</p>
-        </div>
-      </div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div style="width:8px;height:8px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan)"></div>
+      DRIVE_ACADEMY
     </div>
-  </section>
-
-  <section class="py-20 bg-drive-offwhite border-y border-drive-navy/5">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-12 tracking-tight text-drive-navy">La technologie au service du suivi</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="p-6">
-          <div class="text-drive-accent text-4xl mb-6">📱</div>
-          <h4 class="font-bold text-xl text-drive-navy mb-3">Suivi Numérique</h4>
-          <p class="text-base text-drive-navy/60 leading-relaxed font-light">Une app d'apprentissage est disponible 24h/24 sur votre smartphone.</p>
-        </div>
-        <div class="p-6">
-          <div class="text-drive-accent text-4xl mb-6">⚡</div>
-          <h4 class="font-bold text-xl text-drive-navy mb-3">Réservation en ligne</h4>
-          <p class="text-base text-drive-navy/60 leading-relaxed font-light">Gérez votre planning en toute autonomie depuis votre espace élève.</p>
-        </div>
-        <div class="p-6">
-          <div class="text-drive-accent text-4xl mb-6">📊</div>
-          <h4 class="font-bold text-xl text-drive-navy mb-3">Stats de Progression</h4>
-          <p class="text-base text-drive-navy/60 leading-relaxed font-light">Visualisez vos points forts et les compétences restant à acquérir.</p>
-        </div>
-      </div>
+    <div class="footer-links">
+      <a href="#">Mentions Légales</a>
+      <a href="#">Confidentialité</a>
+      <a href="#">CGV</a>
     </div>
-  </section>
-
-  <section class="py-24 bg-drive-offwhite" id="offres">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-drive-navy mb-4 tracking-tight">Nos Formations d'Excellence</h2>
-        <p class="text-drive-navy/60 max-w-2xl mx-auto text-lg">Des forfaits transparents, conçus pour s'adapter à votre rythme et à vos ambitions.</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-8 items-center">
-        
-        <div class="bg-white p-10 rounded-2xl border border-drive-navy/5 card-shadow flex flex-col h-full">
-          <div class="mb-8 relative pb-6 border-b border-drive-navy/10 text-center">
-            <h3 class="text-2xl font-bold mb-2 text-drive-navy tracking-tight">Théorie & Code</h3>
-            <p class="text-sm text-drive-navy/50 mb-4 font-serif italic">Pour démarrer sereinement</p>
-            <div class="text-4xl font-bold text-drive-navy">290€</div>
-          </div>
-          <ul class="space-y-5 mb-10 flex-grow text-sm text-drive-navy/80 leading-relaxed font-light">
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
-              <span>Accès illimité à la plateforme e-learning (6 mois)</span>
-            </li>
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
-              <span>Livre de code officiel inclus</span>
-            </li>
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
-              <span>Ateliers thématiques en salle avec formateur</span>
-            </li>
-          </ul>
-          <button class="w-full py-3 border-2 border-drive-navy text-drive-navy rounded-xl font-bold hover:bg-drive-navy hover:text-white transition-all">Choisir cette formule</button>
-        </div>
-        
-        <div class="bg-drive-navy p-10 rounded-2xl border-4 border-drive-accent card-shadow flex flex-col h-full relative transform md:scale-105 z-10 shadow-2xl">
-          <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-drive-accent text-white px-6 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-md">Recommandé</span>
-          <div class="mb-8 relative pb-6 border-b border-white/10 text-center mt-2">
-            <h3 class="text-3xl font-bold mb-2 text-drive-offwhite tracking-tight">Formule Sérénité</h3>
-            <p class="text-sm text-drive-accent mb-4 font-serif italic">Permis B complet</p>
-            <div class="text-5xl font-bold text-drive-offwhite">1 850€</div>
-          </div>
-          <ul class="space-y-5 mb-10 flex-grow text-sm text-drive-offwhite/90 leading-relaxed font-light">
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent rounded-full flex items-center justify-center text-drive-navy font-bold mr-3 mt-0.5 shrink-0 text-xs">✓</span>
-              <span><strong class="text-white">30 heures</strong> de conduite individuelles</span>
-            </li>
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent rounded-full flex items-center justify-center text-drive-navy font-bold mr-3 mt-0.5 shrink-0 text-xs">✓</span>
-              <span>Accompagnement sophrologie (gestion du stress)</span>
-            </li>
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent rounded-full flex items-center justify-center text-drive-navy font-bold mr-3 mt-0.5 shrink-0 text-xs">✓</span>
-              <span>Conduite sur véhicules Premium (Golf 8)</span>
-            </li>
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent rounded-full flex items-center justify-center text-drive-navy font-bold mr-3 mt-0.5 shrink-0 text-xs">✓</span>
-              <span>Présentation à l'examen prioritaire</span>
-            </li>
-          </ul>
-          <button class="w-full py-4 bg-drive-accent text-white rounded-xl font-bold btn-premium shadow-lg text-lg">S'inscrire maintenant</button>
-        </div>
-        
-        <div class="bg-white p-10 rounded-2xl border border-drive-navy/5 card-shadow flex flex-col h-full">
-          <div class="mb-8 relative pb-6 border-b border-drive-navy/10 text-center">
-            <h3 class="text-2xl font-bold mb-2 text-drive-navy tracking-tight">Formule Standard</h3>
-            <p class="text-sm text-drive-navy/50 mb-4 font-serif italic">L'essentiel pour réussir</p>
-            <div class="text-4xl font-bold text-drive-navy">1 290€</div>
-          </div>
-          <ul class="space-y-5 mb-10 flex-grow text-sm text-drive-navy/80 leading-relaxed font-light">
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
-              <span><strong class="text-drive-navy">20 heures</strong> de conduite (minimum légal)</span>
-            </li>
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
-              <span>Accès au code en ligne</span>
-            </li>
-            <li class="flex items-start">
-              <span class="w-5 h-5 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent mr-3 mt-0.5 shrink-0">✓</span>
-              <span>Livret d'apprentissage numérique</span>
-            </li>
-          </ul>
-          <button class="w-full py-3 border-2 border-drive-navy text-drive-navy rounded-xl font-bold hover:bg-drive-navy hover:text-white transition-all">Choisir cette formule</button>
-        </div>
-        
-      </div>
-      <p class="text-center mt-8 text-sm text-drive-navy/50 font-light italic">* Facilités de paiement en 3x ou 4x sans frais disponibles pour toutes nos formules.</p>
-    </div>
-  </section>
-
-  <section class="py-24 bg-white" id="contact">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-drive-navy mb-4 tracking-tight">Nous trouver & Horaires</h2>
-        <p class="text-lg text-drive-navy/70 max-w-2xl mx-auto">Toutes les informations pour nous contacter ou vous rendre en agence.</p>
-      </div>
-      <div class="grid md:grid-cols-2 gap-12">
-        <div class="space-y-8 p-10 rounded-2xl border border-drive-navy/5 bg-drive-offwhite card-shadow flex flex-col justify-center">
-          <div class="flex items-center space-x-3 mb-6">
-            <div class="w-12 h-12 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-            </div>
-            <h2 class="text-3xl font-bold text-drive-navy tracking-tight">Notre Adresse</h2>
-          </div>
-          <div class="text-lg text-drive-navy/80 leading-relaxed font-light space-y-3">
-            <p class="font-semibold text-xl text-drive-navy">Drive Academy Paris</p>
-            <p>5 Rue de la Concorde,</p>
-            <p>75008 Paris, France</p>
-            <p class="pt-4 text-sm font-semibold">Contact : 01 23 45 67 89</p>
-          </div>
-        </div>
-        <div class="space-y-8 p-10 rounded-2xl border border-drive-navy/5 bg-white card-shadow flex flex-col justify-center">
-          <div class="flex items-center space-x-3 mb-6">
-            <div class="w-12 h-12 bg-drive-accent/20 rounded-full flex items-center justify-center text-drive-accent">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-            </div>
-            <h2 class="text-3xl font-bold text-drive-navy tracking-tight">Horaires d'Ouverture</h2>
-          </div>
-          <div class="text-lg text-drive-navy/80 leading-relaxed font-light space-y-4">
-            <div class="flex justify-between items-center gap-4"><span class="font-semibold text-drive-navy">Lundi - Vendredi</span><span class="text-sm bg-drive-offwhite/80 p-1 px-3 rounded-full text-drive-navy whitespace-nowrap">8h30 - 19h00</span></div>
-            <div class="flex justify-between items-center gap-4"><span class="font-semibold text-drive-navy">Samedi</span><span class="text-sm bg-drive-offwhite/80 p-1 px-3 rounded-full text-drive-navy whitespace-nowrap">9h00 - 17h00</span></div>
-            <div class="flex justify-between items-center gap-4"><span class="font-semibold text-drive-navy">Dimanche</span><span class="text-sm bg-drive-offwhite/80 p-1 px-3 rounded-full text-drive-accent font-bold whitespace-nowrap">Fermé</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-24 bg-white text-center">
-    <div class="max-w-3xl mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-6 text-drive-navy tracking-tight">Prêt à prendre la route avec confiance ?</h2>
-      <p class="text-drive-navy/60 mb-10 text-lg leading-relaxed">Rejoignez Drive Academy aujourd'hui et bénéficiez d'une évaluation gratuite de 30 minutes.</p>
-      <button class="px-10 py-5 bg-drive-navy text-white rounded-xl font-bold text-lg btn-premium">Réserver mon évaluation offerte</button>
-    </div>
-  </section>
-</main>
-
-<footer class="bg-drive-navy py-12 border-t border-white/5">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8 text-drive-offwhite/50">
-    <div class="text-2xl font-serif font-bold text-drive-offwhite">Drive Academy</div>
-    <div class="flex space-x-8 text-sm">
-      <a class="hover:text-drive-accent transition-colors uppercase tracking-widest" href="#">Mentions Légales</a>
-      <a class="hover:text-drive-accent transition-colors uppercase tracking-widest" href="#contact">Contact</a>
-    </div>
-    <div class="text-sm">© 2026 Drive Academy. Tous droits réservés.</div>
+    <div class="footer-copy">© 2026 DRIVE ACADEMY</div>
   </div>
 </footer>
 
-
-<!-- ===== CHATBOT WIDGET ===== -->
-
-<!-- Toggle Button -->
+<!-- CHATBOT -->
 <button id="chat-toggle-btn" aria-label="Ouvrir le chat">
   <span id="chat-badge">1</span>
   <span class="icon-chat">
-    <svg width="24" height="24" fill="none" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+    <svg width="24" height="24" fill="none" stroke="#080C10" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
     </svg>
   </span>
   <span class="icon-close">
-    <svg width="20" height="20" fill="none" stroke="#FAF9F6" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24">
+    <svg width="20" height="20" fill="none" stroke="#080C10" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24">
       <path d="M18 6L6 18M6 6l12 12"/>
     </svg>
   </span>
 </button>
 
-<!-- Chat Window -->
 <div id="chat-window" role="dialog" aria-label="Chat Drive Academy">
-
   <div id="chat-header">
     <div class="avatar">
-      <svg width="20" height="20" fill="none" stroke="#C5A059" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      <svg width="18" height="18" fill="none" stroke="var(--cyan)" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <div class="info">
       <h4>Drive Academy</h4>
-      <p>Conseiller disponible</p>
+      <p>Assistant en ligne</p>
     </div>
   </div>
-
   <div id="chat-messages"></div>
-
   <div id="chat-input-area">
     <textarea id="chat-input" placeholder="Posez votre question..." rows="1" aria-label="Message"></textarea>
     <button id="chat-send-btn" aria-label="Envoyer">
-      <svg width="17" height="17" fill="none" stroke="#FAF9F6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <svg width="16" height="16" fill="none" stroke="#080C10" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
         <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
       </svg>
     </button>
@@ -616,21 +1804,67 @@
 </div>
 
 <script>
-  const WEBHOOK_URL = 'https://n8n.srv959772.hstgr.cloud/webhook/41a0797f-1756-48da-b74b-4552a8a0171d';
+  /* === STAT COUNTERS === */
+  function animateCount(el, target, duration = 1600) {
+    const start = performance.now();
+    const update = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.floor(ease * target);
+      if (t < 1) requestAnimationFrame(update);
+      else el.textContent = target;
+    };
+    requestAnimationFrame(update);
+  }
 
+  let statsDone = false;
+  const statsObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !statsDone) {
+      statsDone = true;
+      animateCount(document.getElementById('stat1'), 98);
+      animateCount(document.getElementById('stat2'), 500);
+      animateCount(document.getElementById('stat3'), 15);
+    }
+  }, { threshold: 0.5 });
+  statsObserver.observe(document.querySelector('.hero-stats'));
+
+  /* === SCROLL REVEAL === */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left');
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('up'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  /* === REVEAL LEFT RESET === */
+  document.querySelectorAll('.reveal-left').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(-30px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+  });
+  const leftObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateX(0)';
+        leftObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal-left').forEach(el => leftObs.observe(el));
+
+  /* === CHATBOT === */
+  const WEBHOOK_URL = 'https://n8n.srv959772.hstgr.cloud/webhook/41a0797f-1756-48da-b74b-4552a8a0171d';
   const toggleBtn = document.getElementById('chat-toggle-btn');
   const chatWindow = document.getElementById('chat-window');
   const chatMessages = document.getElementById('chat-messages');
   const chatInput = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send-btn');
   const badge = document.getElementById('chat-badge');
+  let isOpen = false, isSending = false;
 
-  let isOpen = false;
-  let isSending = false;
-
-  function init() {
-    addMessage('bot', 'Bonjour 👋 Bienvenue chez Drive Academy. Comment puis-je vous accompagner aujourd\'hui ?');
-  }
+  function init() { addMessage('bot', 'Bonjour 👋 Bienvenue chez Drive Academy ! Comment puis-je vous aider aujourd\'hui ?'); }
 
   toggleBtn.addEventListener('click', () => {
     isOpen = !isOpen;
@@ -640,88 +1874,46 @@
     if (isOpen) setTimeout(() => chatInput.focus(), 300);
   });
 
-  function getTime() {
-    return new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  }
+  function getTime() { return new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); }
 
   function addMessage(role, text, isError = false) {
     const row = document.createElement('div');
     row.className = `msg-row ${role}${isError ? ' msg-error' : ''}`;
-
     if (role === 'bot') {
-      const av = document.createElement('div');
-      av.className = 'msg-avatar';
-      av.innerHTML = `<svg width="13" height="13" fill="none" stroke="#C5A059" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`;
+      const av = document.createElement('div'); av.className = 'msg-avatar';
+      av.innerHTML = `<svg width="12" height="12" fill="none" stroke="var(--cyan)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
       row.appendChild(av);
     }
-
     const col = document.createElement('div');
     col.style.cssText = 'display:flex;flex-direction:column;gap:3px;' + (role === 'user' ? 'align-items:flex-end;' : '');
-
-    const bubble = document.createElement('div');
-    bubble.className = 'msg-bubble';
-    bubble.textContent = text;
-
-    const time = document.createElement('div');
-    time.className = 'msg-time';
-    time.textContent = getTime();
-
-    col.appendChild(bubble);
-    col.appendChild(time);
-    row.appendChild(col);
-    chatMessages.appendChild(row);
-    scrollToBottom();
+    const bubble = document.createElement('div'); bubble.className = 'msg-bubble'; bubble.textContent = text;
+    const time = document.createElement('div'); time.className = 'msg-time'; time.textContent = getTime();
+    col.appendChild(bubble); col.appendChild(time); row.appendChild(col);
+    chatMessages.appendChild(row); chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
   function showTyping() {
-    const row = document.createElement('div');
-    row.className = 'msg-row bot';
-    row.id = 'typing-row';
-    const av = document.createElement('div');
-    av.className = 'msg-avatar';
-    av.innerHTML = `<svg width="13" height="13" fill="none" stroke="#C5A059" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`;
-    const bubble = document.createElement('div');
-    bubble.className = 'msg-bubble';
+    const row = document.createElement('div'); row.className = 'msg-row bot'; row.id = 'typing-row';
+    const av = document.createElement('div'); av.className = 'msg-avatar';
+    av.innerHTML = `<svg width="12" height="12" fill="none" stroke="var(--cyan)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const bubble = document.createElement('div'); bubble.className = 'msg-bubble';
     bubble.innerHTML = `<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-    row.appendChild(av);
-    row.appendChild(bubble);
-    chatMessages.appendChild(row);
-    scrollToBottom();
-  }
-
-  function hideTyping() {
-    const el = document.getElementById('typing-row');
-    if (el) el.remove();
-  }
-
-  function scrollToBottom() {
+    row.appendChild(av); row.appendChild(bubble); chatMessages.appendChild(row);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
+
+  function hideTyping() { const el = document.getElementById('typing-row'); if (el) el.remove(); }
 
   async function sendMessage() {
     const text = chatInput.value.trim();
     if (!text || isSending) return;
-
-    isSending = true;
-    sendBtn.disabled = true;
-    chatInput.value = '';
-    autoResize();
-    addMessage('user', text);
-    showTyping();
-
+    isSending = true; sendBtn.disabled = true;
+    chatInput.value = ''; autoResize(); addMessage('user', text); showTyping();
     const payload = JSON.stringify({ message: text, timestamp: new Date().toISOString() });
-
     try {
-      // text/plain évite le preflight CORS OPTIONS
-      const response = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: payload
-      });
-
+      const response = await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: payload });
       hideTyping();
       if (!response.ok) throw new Error('HTTP ' + response.status);
-
       const raw = await response.text();
       let reply = '';
       try {
@@ -729,25 +1921,18 @@
         const src = Array.isArray(data) ? data[0] : data;
         reply = src?.output ?? src?.message ?? src?.reply ?? src?.text ?? src?.response ?? src?.answer ?? src?.content ?? '';
         if (!reply) reply = typeof data === 'string' ? data : JSON.stringify(data);
-      } catch (e) {
-        reply = raw;
-      }
-
-      addMessage('bot', reply.trim() || 'Message bien reçu. Notre équipe vous répondra très bientôt.');
-
-    } catch (err) {
+      } catch(e) { reply = raw; }
+      addMessage('bot', reply.trim() || 'Message reçu ! Notre équipe vous répond très bientôt. 😊');
+    } catch(err) {
       hideTyping();
-      console.error('Chatbot error:', err.message);
       try {
         await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: payload });
-        addMessage('bot', 'Message envoyé ✓ Notre équipe vous répondra dans les plus brefs délais.');
-      } catch (e) {
-        addMessage('bot', '⚠️ Connexion impossible. Contactez-nous au 01 23 45 67 89.', true);
+        addMessage('bot', 'Message envoyé ✓ On revient vers vous très vite !');
+      } catch(e) {
+        addMessage('bot', '⚠️ Connexion impossible. Appelez-nous au 01 23 45 67 89.', true);
       }
     } finally {
-      isSending = false;
-      sendBtn.disabled = false;
-      chatInput.focus();
+      isSending = false; sendBtn.disabled = false; chatInput.focus();
     }
   }
 
@@ -755,14 +1940,10 @@
     chatInput.style.height = 'auto';
     chatInput.style.height = Math.min(chatInput.scrollHeight, 100) + 'px';
   }
-
   chatInput.addEventListener('input', autoResize);
-  chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-  });
+  chatInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
   sendBtn.addEventListener('click', sendMessage);
   init();
 </script>
-
 </body>
 </html>
